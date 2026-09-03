@@ -1,0 +1,14 @@
+{
+  "files": {
+    "dist/core/index.js": {
+      "raw": 6000,
+      "gzip": 2500,
+      "brotli": 2200
+    },
+    "dist/effect/index.js": {
+      "raw": 8000,
+      "gzip": 3500,
+      "brotli": 3000
+    }
+  }
+}

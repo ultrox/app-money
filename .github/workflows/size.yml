@@ -1,0 +1,76 @@
+name: Bundle size
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: size-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  compare:
+    name: Compare with base
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out pull request
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          path: head
+
+      - name: Check out base revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          path: base
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
+        with:
+          version: 11.25.0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version-file: head/.node-version
+
+      - name: Measure base revision
+        env:
+          BASE_REPORT: ${{ runner.temp }}/base-size.json
+        run: |
+          if [[ -f base/package.json && -f base/size-budget.json ]]; then
+            pnpm --dir base install --frozen-lockfile
+            pnpm --dir base build
+            node head/scripts/report-size.mjs --root base --json "$BASE_REPORT"
+          fi
+
+      - name: Measure pull request and enforce budget
+        env:
+          BASE_REPORT: ${{ runner.temp }}/base-size.json
+          CURRENT_REPORT: ${{ runner.temp }}/current-size.json
+        run: |
+          pnpm --dir head install --frozen-lockfile
+          pnpm --dir head build
+
+          compare_args=()
+          if [[ -f "$BASE_REPORT" ]]; then
+            compare_args=(--compare "$BASE_REPORT")
+          fi
+
+          node head/scripts/report-size.mjs \
+            --root head \
+            --json "$CURRENT_REPORT" \
+            --check \
+            "${compare_args[@]}"
+
+      - name: Upload size measurements
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: bundle-size-report
+          path: ${{ runner.temp }}/*-size.json
+          if-no-files-found: error
+          retention-days: 14
