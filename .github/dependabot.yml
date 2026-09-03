@@ -10,6 +10,12 @@ updates:
     groups:
       development-dependencies:
         dependency-type: development
+    ignore:
+      # TypeDoc 0.28 supports TypeScript through 6.x, and development runs on Node 22.
+      - dependency-name: typescript
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
     open-pull-requests-limit: 5
 
   - package-ecosystem: github-actions
