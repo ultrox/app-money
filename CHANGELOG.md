@@ -1,5 +1,11 @@
 # @ma.vu/app-money
 
+## 0.1.2
+
+### Patch Changes
+
+- [#7](https://github.com/ultrox/app-money/pull/7) [`7b7f80d`](https://github.com/ultrox/app-money/commit/7b7f80df84f40af11ee55d1bce9594995b7f483e) Thanks [@ultrox](https://github.com/ultrox)! - Show the measured core and Effect bundle sizes directly in the README badge.
+
 ## 0.1.1
 
 ### Patch Changes
