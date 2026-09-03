@@ -2,7 +2,7 @@
 
 [![npm version](https://img.shields.io/npm/v/%40ma.vu%2Fapp-money?logo=npm)](https://www.npmjs.com/package/@ma.vu/app-money)
 [![CI](https://github.com/ultrox/app-money/actions/workflows/ci.yml/badge.svg)](https://github.com/ultrox/app-money/actions/workflows/ci.yml)
-[![Bundle size](https://github.com/ultrox/app-money/actions/workflows/size.yml/badge.svg)](https://github.com/ultrox/app-money/actions/workflows/size.yml)
+[![Bundle size (gzip)](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fultrox%2Fapp-money%2Fmain%2F.github%2Fbadges%2Fbundle-size.json)](https://github.com/ultrox/app-money#bundle-size-visibility)
 [![CodeQL](https://github.com/ultrox/app-money/actions/workflows/codeql.yml/badge.svg)](https://github.com/ultrox/app-money/actions/workflows/codeql.yml)
 [![Documentation](https://github.com/ultrox/app-money/actions/workflows/docs.yml/badge.svg)](https://ultrox.github.io/app-money/)
 
@@ -74,6 +74,7 @@ arithmetic, comparisons, and signs.
 
 `pnpm size` reports both built entry points in raw, gzip, and Brotli bytes. Hard limits live in
 [`size-budget.json`](./size-budget.json), so budget changes are visible in code review.
+It also refreshes the README badge with the current gzip sizes; CI fails if that badge is stale.
 
 On every pull request, the Bundle size workflow builds both the base revision and the proposed
 revision. Its GitHub job summary shows the exact Brotli delta and fails if the new bundle exceeds

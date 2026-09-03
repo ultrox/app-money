@@ -65,6 +65,7 @@ jobs:
             --root head \
             --json "$CURRENT_REPORT" \
             --check \
+            --check-badge \
             "${compare_args[@]}"
 
       - name: Upload size measurements
