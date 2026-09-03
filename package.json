@@ -1,6 +1,6 @@
 {
   "name": "@ma.vu/app-money",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "An exact Money value object for TypeScript with an optional Effect integration.",
   "keywords": [
     "money",
