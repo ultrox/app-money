@@ -1,5 +1,6 @@
 # app-money
 
+[![npm version](https://img.shields.io/npm/v/%40ma.vu%2Fapp-money?logo=npm)](https://www.npmjs.com/package/@ma.vu/app-money)
 [![CI](https://github.com/ultrox/app-money/actions/workflows/ci.yml/badge.svg)](https://github.com/ultrox/app-money/actions/workflows/ci.yml)
 [![Bundle size](https://github.com/ultrox/app-money/actions/workflows/size.yml/badge.svg)](https://github.com/ultrox/app-money/actions/workflows/size.yml)
 [![CodeQL](https://github.com/ultrox/app-money/actions/workflows/codeql.yml/badge.svg)](https://github.com/ultrox/app-money/actions/workflows/codeql.yml)
