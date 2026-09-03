@@ -1,0 +1,6 @@
+{
+  "schemaVersion": 1,
+  "label": "bundle size · gzip",
+  "message": "core 1.69 kB | effect 1.85 kB",
+  "color": "blue"
+}

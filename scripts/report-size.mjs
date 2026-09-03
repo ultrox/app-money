@@ -12,8 +12,11 @@ const option = (name) => {
 
 const root = path.resolve(option("--root") ?? process.cwd());
 const shouldCheck = args.includes("--check");
+const shouldWriteBadge = args.includes("--write-badge");
+const shouldCheckBadge = args.includes("--check-badge");
 const outputPath = option("--json");
 const comparisonPath = option("--compare");
+const badgePath = path.join(root, ".github/badges/bundle-size.json");
 
 const readJson = async (file) => JSON.parse(await readFile(file, "utf8"));
 const budget = await readJson(path.join(root, "size-budget.json"));
@@ -56,6 +59,30 @@ for (const [relativePath, measurements] of Object.entries(report.files)) {
   rows.push(
     `| \`${relativePath}\` | ${bytes(measurements.raw)} | ${bytes(measurements.gzip)} | ${bytes(measurements.brotli)} | ${delta(previous ? measurements.brotli - previous.brotli : undefined)} | ${bytes(measurements.limits.brotli)} | ${exceeded.length === 0 ? "✅" : "❌"} |`,
   );
+}
+
+const badge = {
+  schemaVersion: 1,
+  label: "bundle size · gzip",
+  message: Object.entries(report.files)
+    .map(([relativePath, measurements]) => {
+      const entryPoint = path.basename(path.dirname(relativePath));
+      return `${entryPoint} ${bytes(measurements.gzip)}`;
+    })
+    .join(" | "),
+  color: "blue",
+};
+const serializedBadge = `${JSON.stringify(badge, null, 2)}\n`;
+
+if (shouldWriteBadge) {
+  await writeFile(badgePath, serializedBadge);
+}
+
+if (shouldCheckBadge) {
+  const currentBadge = await readFile(badgePath, "utf8").catch(() => undefined);
+  if (currentBadge !== serializedBadge) {
+    failures.push("bundle size badge is stale; run `pnpm size`");
+  }
 }
 
 const markdown = [
