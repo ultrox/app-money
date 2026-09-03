@@ -1,0 +1,35 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "name": "@ma.vu/app-money",
+  "entryPoints": ["src/index.ts", "src/money.effect.ts"],
+  "entryPointStrategy": "resolve",
+  "alwaysCreateEntryPointModule": true,
+  "out": ".artifacts/docs",
+  "readme": "README.md",
+  "projectDocuments": ["guides/**/*.md"],
+  "includeVersion": true,
+  "excludeInternal": true,
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "groupReferencesByType": true,
+  "searchInComments": true,
+  "searchInDocuments": true,
+  "useFirstParagraphOfCommentAsSummary": true,
+  "markdownLinkExternal": true,
+  "sourceLinkExternal": true,
+  "disableGit": true,
+  "basePath": ".",
+  "sourceLinkTemplate": "https://github.com/ultrox/app-money/blob/main/{path}#L{line}",
+  "hostedBaseUrl": "https://ultrox.github.io/app-money/",
+  "navigationLinks": {
+    "GitHub": "https://github.com/ultrox/app-money",
+    "npm": "https://www.npmjs.com/package/@ma.vu/app-money"
+  },
+  "intentionallyNotExported": ["Lifted", "DecimalWireInput", "MinorWireInput"],
+  "validation": {
+    "notExported": true,
+    "invalidLink": true,
+    "notDocumented": false
+  },
+  "treatWarningsAsErrors": true
+}

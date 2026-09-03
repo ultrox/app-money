@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "isolatedDeclarations": true,
+    "noEmit": false
+  },
+  "include": [
+    "src/index.ts",
+    "src/money.effect.ts",
+    "src/money.ts",
+    "src/result.ts",
+    "src/wire.ts"
+  ],
+  "exclude": ["src/**/*.test.ts"]
+}

@@ -1,0 +1,91 @@
+{
+  "name": "@ma.vu/app-money",
+  "version": "0.0.0",
+  "description": "An exact Money value object for TypeScript with an optional Effect integration.",
+  "keywords": [
+    "money",
+    "currency",
+    "typescript",
+    "effect"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/core/index.js",
+  "module": "./dist/core/index.js",
+  "types": "./dist/core/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/core/index.d.ts",
+      "import": "./dist/core/index.js"
+    },
+    "./effect": {
+      "types": "./dist/effect/index.d.ts",
+      "import": "./dist/effect/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "effect": "^3.22.1"
+  },
+  "peerDependenciesMeta": {
+    "effect": {
+      "optional": true
+    }
+  },
+  "packageManager": "pnpm@11.25.0",
+  "scripts": {
+    "build": "node scripts/clean.mjs && tsdown",
+    "changeset": "changeset",
+    "check": "pnpm lint && pnpm typecheck && pnpm test:coverage && pnpm docs:build && pnpm build && pnpm package:check && pnpm size:check && pnpm deadcode && pnpm security:audit",
+    "deadcode": "knip",
+    "docs:build": "typedoc",
+    "format": "biome format --write .",
+    "format:check": "biome format .",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "package:check": "publint && attw --pack . --profile esm-only && node scripts/smoke-package.mjs",
+    "prepublishOnly": "pnpm check",
+    "release": "npm publish --access public && changeset git-tag",
+    "security:audit": "pnpm audit --audit-level high",
+    "size": "pnpm build && node scripts/report-size.mjs --check",
+    "size:check": "node scripts/report-size.mjs --check",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage && node scripts/report-coverage.mjs",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "version-packages": "changeset version"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "0.18.5",
+    "@biomejs/biome": "2.5.12",
+    "@changesets/changelog-github": "1.0.0",
+    "@changesets/cli": "3.0.1",
+    "@types/node": "22.20.1",
+    "@vitest/coverage-v8": "4.1.11",
+    "effect": "3.22.1",
+    "fast-check": "4.9.0",
+    "knip": "6.34.0",
+    "publint": "0.3.24",
+    "tsdown": "0.22.14",
+    "typedoc": "0.28.20",
+    "typescript": "6.0.3",
+    "vitest": "4.1.11"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ultrox/app-money.git"
+  },
+  "homepage": "https://ultrox.github.io/app-money/",
+  "bugs": {
+    "url": "https://github.com/ultrox/app-money/issues"
+  },
+  "license": "MIT"
+}
